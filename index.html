@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM 新聞摘要小程式 - 作業作品頁</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; background: #f9f9f9; }
+        h1, h2 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 8px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        code { background: #eee; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 6px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🤖 LLM 新聞摘要小程式</h1>
+    <p><strong>學生資訊：</strong>資管系學生作業作品頁</p>
+
+    <div class="card">
+        <h2>1. 這個專案做了什麼？</h2>
+        <p>本程式使用 Python 呼叫 Google Gemini API（<code>gemini-2.5-flash</code> 模型），針對指定的科技新聞內容進行自動重點摘要，並採用<strong>串流輸出（Streaming）</strong>技術，讓使用者能即時看到 AI 生成文字的過程。</p>
+    </div>
+
+    <div class="card">
+        <h2>2. 如何執行？</h2>
+        <p>確保安裝 Python 與 <code>uv</code> 套件管理工具後，依照以下步驟執行：</p>
+        <pre><code># 1. 設定環境變數（填入你的 Gemini API Key）
+export GEMINI_API_KEY="你的-api-key"
+
+# 2. 執行主程式
+python main.py</code></pre>
+    </div>
+
+    <div class="card">
+        <h2>3. 執行結果</h2>
+        <p>程式會自動讀取內建的新聞文本，並即時串流輸出 3 個核心要點與總結內容。</p>
+    </div>
+
+    <div class="card">
+        <h2>4. AI 使用與修改說明</h2>
+        <p>本專案在開發過程中透過 AI 協作完成程式架構設計、Gemini API 串流語法除錯，並確保符合專案規格，同時嚴格遵守 .gitignore 規範以防止 API 金鑰外洩。</p>
+    </div>
+</body>
+</html>
