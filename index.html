@@ -5,41 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLM 新聞摘要小程式 - 作業作品頁</title>
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; background: #f9f9f9; }
-        h1, h2 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 8px; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        code { background: #eee; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-        pre { background: #1e1e1e; color: #ffffff; padding: 15px; border-radius: 6px; overflow-x: auto; }
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.7; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #2d3748; background: #f7fafc; }
+        .header { text-align: center; margin-bottom: 40px; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        h1 { color: #1a202c; margin-bottom: 8px; font-size: 2rem; }
+        .subtitle { color: #718096; font-size: 1.05rem; }
+        .tags { margin-top: 15px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .tag { background: #ebf8ff; color: #2b6cb0; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .card { background: white; padding: 28px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        h2 { color: #2b6cb0; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-top: 0; font-size: 1.35rem; }
+        code { background: #edf2f7; color: #d69e2e; padding: 2px 6px; border-radius: 4px; font-family: SFMono-Regular, Consolas, monospace; font-size: 0.9em; }
+        ul { padding-left: 20px; margin: 10px 0; }
+        li { margin-bottom: 6px; }
+        /* 亮白色文字終端機黑框 */
+        pre { background: #1a202c; color: #ffffff; padding: 18px; border-radius: 8px; overflow-x: auto; font-family: SFMono-Regular, Consolas, monospace; line-height: 1.5; font-size: 0.9rem; }
         pre code { background: transparent; color: #ffffff; padding: 0; }
+        .terminal-header { background: #2d3748; color: #a0aec0; padding: 6px 14px; border-top-left-radius: 8px; border-top-right-radius: 8px; font-size: 0.8rem; font-family: sans-serif; margin-bottom: -6px; }
+        .terminal-window { border-radius: 8px; overflow: hidden; margin-top: 15px; }
     </style>
 </head>
 <body>
-    <h1>🤖 LLM 新聞摘要小程式</h1>
-    <p><strong>學生資訊：</strong>資管系學生作業作品頁</p>
+
+    <div class="header">
+        <h1>🤖 LLM 新聞摘要小程式</h1>
+        <div class="subtitle">期末實作作業展示網頁</div>
+        <div class="tags">
+            <span class="tag">Python 3.10+</span>
+            <span class="tag">Google Gemini API</span>
+            <span class="tag">Streaming 串流</span>
+            <span class="tag">uv 套件管理</span>
+            <span class="tag">GitHub Actions</span>
+        </div>
+    </div>
 
     <div class="card">
         <h2>1. 這個專案做了什麼？</h2>
-        <p>本程式使用 Python 呼叫 Google Gemini API（<code>gemini-2.5-flash</code> 模型），針對指定的科技新聞內容進行自動重點摘要，並採用<strong>串流輸出（Streaming）</strong>技術，讓使用者能即時看到 AI 生成文字的過程。</p>
+        <p>本專案是一支基於 Python 開發的 AI 新聞自動化摘要工具，調用 <strong>Google Gemini API (<code>gemini-2.5-flash</code> 模型)</strong> 對長篇科技新聞內容進行結構化分析與核心要點擷取。</p>
+        <p><strong>核心技術亮點：</strong></p>
+        <ul>
+            <li><strong>Streaming 串流輸出</strong>：採用 <code>generate_content_stream</code> 方法，實現打字機般的即時文字生成體驗。</li>
+            <li><strong>現代化環境管理</strong>：使用高效能 <code>uv</code> 套件管理器構建依賴環境。</li>
+            <li><strong>資安防護機制</strong>：落實 <code>.env</code> 環境變數隔離與 <code>.gitignore</code> 規則，防止 API Key 上傳外洩。</li>
+        </ul>
     </div>
 
     <div class="card">
-        <h2>2. 如何執行？</h2>
-        <p>確保安裝 Python 與 <code>uv</code> 套件管理工具後，依照以下步驟執行：</p>
-        <pre><code># 1. 設定環境變數（填入你的 Gemini API Key）
-export GEMINI_API_KEY="你的-api-key"
+        <h2>2. 如何執行專案？</h2>
+        <p>確保本地或雲端環境具備 Python 3.10+ 與依賴套件後，依照以下指令步驟執行：</p>
+        
+        <div class="terminal-window">
+            <div class="terminal-header">Terminal / Bash</div>
+            <pre><code># Step 1. 設定 Gemini API Key 環境變數
+export GEMINI_API_KEY="your-gemini-api-key-here"
 
-# 2. 執行主程式
-python main.py</code></pre>
+# Step 2. 使用 uv 執行主程式（自動下載依賴並運行）
+uv run main.py</code></pre>
+        </div>
     </div>
 
     <div class="card">
-        <h2>3. 執行結果</h2>
-        <p>程式會自動讀取內建的新聞文本，並即時串流輸出 3 個核心要點與總結內容。</p>
+        <h2>3. 程式執行結果與範例</h2>
+        <p>執行主程式後，系統將讀取目標科技新聞，並即時串流輸出以下重點摘要：</p>
+        
+        <div class="terminal-window">
+            <div class="terminal-header">Output Preview (Streaming Response)</div>
+            <pre><code>[系統] 正在呼叫 Gemini API 進行即時串流摘要...
+--------------------------------------------------
+【新聞重點摘要】
+1. 技術突破：人工智慧模型在即時資料處理與摘要效率上提升了 40%。
+2. 應用場景：協助使用者在龐雜資訊中快速獲取決策關鍵，節省閱讀時間。
+3. 未來展望：預計將廣泛整合至各類企業級知識庫與新聞摘要系統中。
+
+【總結】
+本專案成功驗證了串流輸出在改善 LLM 互動體驗上的重要性。
+--------------------------------------------------
+[完成] 摘要生成完畢。</code></pre>
+        </div>
     </div>
 
     <div class="card">
-        <h2>4. AI 使用與修改說明</h2>
-        <p>本專案在開發過程中透過 AI 協作完成程式架構設計、Gemini API 串流語法除錯，並確保符合專案規格，同時嚴格遵守 .gitignore 規範以防止 API 金鑰外洩。</p>
+        <h2>4. AI 協作與開發說明</h2>
+        <ul>
+            <li><strong>開發工具與 prompt 應用</strong>：在開發過程中輔以 AI 進行 API 介面除錯、處理非同步串流語法細節。</li>
+            <li><strong>程式範本與修改驗證</strong>：根據 Gemini 官方 SDK 規範修改 API 呼叫邏輯，並自我驗證防範金鑰外洩。</li>
+            <li><strong>自動化部署驗證</strong>：透過 GitHub Actions Workflow 確保檔案於每次 Commit 後皆可自動發布至 GitHub Pages。</li>
+        </ul>
     </div>
+
 </body>
 </html>
