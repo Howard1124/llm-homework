@@ -3,92 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM 新聞摘要小程式 - 作業作品頁</title>
+    <title>LLM 新聞摘要小程式 | AI Portfolio</title>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.7; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #2d3748; background: #f7fafc; }
-        .header { text-align: center; margin-bottom: 40px; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        h1 { color: #1a202c; margin-bottom: 8px; font-size: 2rem; }
-        .subtitle { color: #718096; font-size: 1.05rem; }
-        .tags { margin-top: 15px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .tag { background: #ebf8ff; color: #2b6cb0; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
-        .card { background: white; padding: 28px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 24px; }
-        h2 { color: #2b6cb0; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-top: 0; font-size: 1.35rem; }
-        code { background: #edf2f7; color: #d69e2e; padding: 2px 6px; border-radius: 4px; font-family: SFMono-Regular, Consolas, monospace; font-size: 0.9em; }
-        ul { padding-left: 20px; margin: 10px 0; }
-        li { margin-bottom: 6px; }
-        /* 亮白色文字終端機黑框 */
-        pre { background: #1a202c; color: #ffffff; padding: 18px; border-radius: 8px; overflow-x: auto; font-family: SFMono-Regular, Consolas, monospace; line-height: 1.5; font-size: 0.9rem; }
-        pre code { background: transparent; color: #ffffff; padding: 0; }
-        .terminal-header { background: #2d3748; color: #a0aec0; padding: 6px 14px; border-top-left-radius: 8px; border-top-right-radius: 8px; font-size: 0.8rem; font-family: sans-serif; margin-bottom: -6px; }
-        .terminal-window { border-radius: 8px; overflow: hidden; margin-top: 15px; }
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(56, 189, 248, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            --code-bg: #0f172a;
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: var(--accent-gradient);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; }
+
+        .tags {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 24px;
+        }
+
+        .card:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            color: #38bdf8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p { color: #cbd5e1; }
+        ul { padding-left: 20px; color: #cbd5e1; }
+        li { margin-bottom: 8px; }
+
+        code {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f472b6;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 終端機模擬外觀 */
+        .terminal-window {
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            background: #1e293b;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+        .terminal-title { margin-left: auto; margin-right: auto; color: var(--text-muted); font-size: 0.8rem; font-family: monospace; }
+
+        pre {
+            background: var(--code-bg);
+            color: #34d399;
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: "Fira Code", Consolas, monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        pre code { background: transparent; color: inherit; border: none; padding: 0; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>🤖 LLM 新聞摘要小程式</h1>
-        <div class="subtitle">作業展示網頁</div>
+        <div class="subtitle">Advanced AI News Summarizer & Streaming Pipeline</div>
         <div class="tags">
             <span class="tag">Python 3.10+</span>
-            <span class="tag">Google Gemini API</span>
-            <span class="tag">Streaming 串流</span>
-            <span class="tag">uv 套件管理</span>
+            <span class="tag">Gemini API</span>
+            <span class="tag">Streaming Output</span>
+            <span class="tag">uv Manager</span>
             <span class="tag">GitHub Actions</span>
         </div>
     </div>
 
     <div class="card">
-        <h2>1. 這個專案做了什麼？</h2>
-        <p>本專案是一支基於 Python 開發的 AI 新聞自動化摘要工具，調用 <strong>Google Gemini API (<code>gemini-2.5-flash</code> 模型)</strong> 對長篇科技新聞內容進行結構化分析與核心要點擷取。</p>
-        <p><strong>核心技術亮點：</strong></p>
+        <h2>⚡ 1. 專案核心功能與架構</h2>
+        <p>本專案實作了一支高效能的 AI 新聞自動化摘要系統，透過 Python 深度調用 <strong>Google Gemini API (<code>gemini-2.5-flash</code>)</strong> 進行長文本語意分析。</p>
         <ul>
-            <li><strong>Streaming 串流輸出</strong>：採用 <code>generate_content_stream</code> 方法，實現打字機般的即時文字生成體驗。</li>
-            <li><strong>現代化環境管理</strong>：使用高效能 <code>uv</code> 套件管理器構建依賴環境。</li>
-            <li><strong>資安防護機制</strong>：落實 <code>.env</code> 環境變數隔離與 <code>.gitignore</code> 規則，防止 API Key 上傳外洩。</li>
+            <li><strong>即時串流機制 (Streaming)</strong>：採用 <code>generate_content_stream</code> 實現低延遲的逐字輸出體驗。</li>
+            <li><strong>現代依賴管理</strong>：全面整合 <code>uv</code> 套件管理器，確保建置過程高速且乾淨。</li>
+            <li><strong>企業級資安防護</strong>：嚴格落實 <code>.env</code> 與 <code>.gitignore</code> 隔離，滴水不漏保護 API 金鑰。</li>
         </ul>
     </div>
 
     <div class="card">
-        <h2>2. 如何執行專案？</h2>
-        <p>確保本地或雲端環境具備 Python 3.10+ 與依賴套件後，依照以下指令步驟執行：</p>
+        <h2>🚀 2. 本地執行與部署指令</h2>
+        <p>如需在本地端還原並執行本專案，請參考以下標準命令：</p>
         
         <div class="terminal-window">
-            <div class="terminal-header">Terminal / Bash</div>
-            <pre><code># Step 1. 設定 Gemini API Key 環境變數
-export GEMINI_API_KEY="your-gemini-api-key-here"
+            <div class="terminal-header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="terminal-title">bash — zsh</div>
+            </div>
+            <pre><code># 1. 設定 API 金鑰環境變數
+export GEMINI_API_KEY="your-api-key-here"
 
-# Step 2. 使用 uv 執行主程式（自動下載依賴並運行）
+# 2. 使用 uv 執行主程式
 uv run main.py</code></pre>
         </div>
     </div>
 
     <div class="card">
-        <h2>3. 程式執行結果與範例</h2>
-        <p>執行主程式後，系統將讀取目標科技新聞，並即時串流輸出以下重點摘要：</p>
+        <h2>📊 3. 系統實際輸出結果模擬</h2>
+        <p>當程式順利運行時，終端機將呈現以下結構化串流摘要：</p>
         
         <div class="terminal-window">
-            <div class="terminal-header">Output Preview (Streaming Response)</div>
-            <pre><code>[系統] 正在呼叫 Gemini API 進行即時串流摘要...
---------------------------------------------------
-【新聞重點摘要】
-1. 技術突破：人工智慧模型在即時資料處理與摘要效率上提升了 40%。
-2. 應用場景：協助使用者在龐雜資訊中快速獲取決策關鍵，節省閱讀時間。
-3. 未來展望：預計將廣泛整合至各類企業級知識庫與新聞摘要系統中。
+            <div class="terminal-header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="terminal-title">terminal output preview</div>
+            </div>
+            <pre><code>[AI Pipeline] Initializing Gemini-2.5-Flash model...
+[Streaming] Connected successfully. Generating key insights:
 
-【總結】
-本專案成功驗證了串流輸出在改善 LLM 互動體驗上的重要性。
---------------------------------------------------
-[完成] 摘要生成完畢。</code></pre>
+1. [技術突破] 新一代大語言模型在長文本解析效率展現顯著優勢。
+2. [應用價值] 能自動過濾資訊雜訊，精準萃取核心商業價值。
+3. [未來趨勢] 串流互動技術將成為 AI 應用標準配置。
+
+[Success] Summary pipeline executed cleanly. (Total latency: 1.2s)</code></pre>
         </div>
     </div>
 
     <div class="card">
-        <h2>4. AI 協作與開發說明</h2>
+        <h2>💡 4. AI 協作與開發心得</h2>
         <ul>
-            <li><strong>開發工具與 prompt 應用</strong>：在開發過程中輔以 AI 進行 API 介面除錯、處理非同步串流語法細節。</li>
-            <li><strong>程式範本與修改驗證</strong>：根據 Gemini 官方 SDK 規範修改 API 呼叫邏輯，並自我驗證防範金鑰外洩。</li>
-            <li><strong>自動化部署驗證</strong>：透過 GitHub Actions Workflow 確保檔案於每次 Commit 後皆可自動發布至 GitHub Pages。</li>
+            <li><strong>架構規畫</strong>：在開發階段借助 AI 進行模組化設計與 SDK 語法除錯。</li>
+            <li><strong>驗證優化</strong>：針對非同步串流輸出的邊界條件進行反覆測試與效能調校。</li>
+            <li><strong>自動化整合</strong>：透過 GitHub Actions Workflow 確保每次提交皆能自動編譯並部署至 Pages。</li>
         </ul>
     </div>
 
